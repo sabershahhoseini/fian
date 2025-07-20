@@ -3,7 +3,7 @@ Fian is a simple script for setting up Wireguard Reverse VPN.
 
 # Why it works
 
-If you setup a Wireguard server on for example a Germany VPS, chances are your setup will never work. Handshakes sent from Iran to Germany will never each client because the censorship will flag source IP + Port and destination IP + Port, and block handshake answer from Germany to Iran.
+If you setup a Wireguard server on for example a Germany VPS, chances are your setup will never work. Handshakes sent from Iran to Germany will never reach client because the censorship will flag source IP + Port and destination IP + Port, and block handshake answer from Germany to Iran.
 
 But Fian does a simple trick, it reverses the process.
 
@@ -38,5 +38,8 @@ wg-quick up wg-saber && systemctl daemon-reload && systemctl start fian@saber
 
 ### WARNING
 
-All arguments passed to fian MUST be unique (except for fail limit). Unique arguments are: CIDR, name, table, and Wireguard port.
+All arguments passed to Fian MUST be unique (except for fail limit). Unique arguments are: CIDR, name, table, and Wireguard port.
 
+Also, Fian does not enable ip forwarding and masquerading for you. Enable them before using it.
+
+And finally, to prevent blocking yourself out of your VPS, Fian will add respective ip rules to route traffic properly to your server. You can view rules inside each generated Wireguard server config file. This is the reason `--table` argument is required.
